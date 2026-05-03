@@ -33,6 +33,8 @@ dependencies {
     // Swagger (optional, you had it)
     implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.5.0'
 
+    implementation 'net.objecthunter:exp4j:0.4.8'
+
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
 
