@@ -20,4 +20,35 @@ public class StreamingChatService {
                 .stream()
                 .content();
     }
+
+    public Flux<String> streamWithSystemPrompt(String systemMessage, String userMessage) {
+        return chatClient
+                .prompt()
+                .system(systemMessage)
+                .user(userMessage)
+                .stream()
+                .content();
+    }
+
+    public Flux<String> streamCodeGeneration(String language, String requirements) {
+        String systemPrompt = String.format(
+                "You are an expert %s developer. Generate clean, well-documented code.",
+                language
+        );
+        String userPrompt = "Write " + language + " code for: " + requirements;
+
+        return chatClient
+                .prompt()
+                .system(systemPrompt)
+                .user(userPrompt)
+                .stream()
+                .content();
+    }
+
+    public String streamAndCollect(String userMessage) {
+        return streamChatResponse(userMessage)
+                .collectList()
+                .map(tokens -> String.join("", tokens))
+                .block();
+    }
 }
